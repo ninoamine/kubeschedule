@@ -22,3 +22,17 @@ type Validator interface {
 type StatusReporter interface {
 	ReportStatus() (string, error)
 }
+
+type BaseAction struct {
+	Name      string
+	Namespace string
+	Schedule  string
+}
+
+type ScaleAction struct {
+	BaseAction
+}
+
+type PatchAction struct {
+	BaseAction
+}
