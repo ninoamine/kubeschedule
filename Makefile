@@ -11,8 +11,9 @@ all: lint test build
 
 
 build:
-	@echo "Building $(BIN)..."
-	$(GO) build -o $(BIN) ./cmd/...
+	@echo "Building binaries..."
+	$(GO) build -o bin/kubeschedule ./cmd/kubeschedule
+	$(GO) build -o bin/explore ./cmd/explore
 
 
 test:

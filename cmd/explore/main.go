@@ -10,7 +10,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
-func listDeployments(ctx context.Context, client kubernetes.Interface, namespace string) ([]string, error) {
+func ListDeployments(ctx context.Context, client kubernetes.Interface, namespace string) ([]string, error) {
 	deployments, err := client.AppsV1().Deployments(namespace).List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func main() {
 		panic(err)
 	}
 
-	names, err := listDeployments(context.Background(), clientset, "default")
+	names, err := ListDeployments(context.Background(), clientset, "default")
 	if err != nil {
 		panic(err)
 	}
