@@ -23,6 +23,11 @@ type ScheduledActionStatus struct {
 	History []string     `json:"history,omitempty"`
 }
 
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:printcolumn:name="Schedule",type="string",JSONPath=".spec.schedule"
+// +kubebuilder:printcolumn:name="Last Run",type="string",JSONPath=".status.lastRun"
+
 type ScheduledAction struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -31,6 +36,7 @@ type ScheduledAction struct {
 	Status ScheduledActionStatus `json:"status,omitempty"`
 }
 
+// +kubebuilder:object:root=true
 type ScheduledActionList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
