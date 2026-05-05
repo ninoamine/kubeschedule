@@ -5,16 +5,22 @@ import (
 )
 
 type ActionSpec struct {
-	Type      string            `json:"type"`
+	//+kubebuilder:validation:Required
+	//+kubebuilder:validation:Enum=Scale;Patch;Delete;RolloutRestart;RotateSecret;Cordon;Exec;Apply
+	Type string `json:"type"`
+	//+kubebuilder:validation:Required
 	TargetRef string            `json:"targetRef"`
 	Params    map[string]string `json:"params,omitempty"`
 }
 
 type ScheduledActionSpec struct {
-	Schedule string     `json:"schedule"`
-	TimeZone *string    `json:"timeZone,omitempty"`
-	Action   ActionSpec `json:"action"`
-	Suspend  *bool      `json:"suspend,omitempty"`
+	//+kubebuilder:validation:Required
+	Schedule string  `json:"schedule"`
+	TimeZone *string `json:"timeZone,omitempty"`
+	//+kubebuilder:validation:Required
+	Action ActionSpec `json:"action"`
+	//+kubebuilder:default:false
+	Suspend *bool `json:"suspend,omitempty"`
 }
 
 type ScheduledActionStatus struct {
