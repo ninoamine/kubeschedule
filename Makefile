@@ -4,10 +4,15 @@ BIN := bin/kubeschedule
 GO := go
 
 
-.PHONY: all build test lint clean
+.PHONY: all build test lint clean generate
 
 
 all: lint test build
+
+
+generate:
+	@echo "Generating DeepCopy and CRD manifests..."
+	controller-gen object crd paths=./api/v1alpha1/... output:crd:dir=./config/crd
 
 
 build:
