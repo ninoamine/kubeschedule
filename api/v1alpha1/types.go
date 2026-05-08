@@ -9,7 +9,7 @@ type ActionSpec struct {
 	//+kubebuilder:validation:Enum=Scale;Patch;Delete;RolloutRestart;RotateSecret;Cordon;Exec;Apply
 	Type ActionType `json:"type"`
 	//+kubebuilder:validation:Required
-	TargetRef string            `json:"targetRef"`
+	TargetRef TargetRef         `json:"targetRef"`
 	Params    map[string]string `json:"params,omitempty"`
 }
 
@@ -24,9 +24,9 @@ type ScheduledActionSpec struct {
 }
 
 type ScheduledActionStatus struct {
-	LastRun *metav1.Time `json:"lastRun,omitempty"`
-	NextRun *metav1.Time `json:"nextRun,omitempty"`
-	History []string     `json:"history,omitempty"`
+	LastRun *metav1.Time       `json:"lastRun,omitempty"`
+	NextRun *metav1.Time       `json:"nextRun,omitempty"`
+	History []ExecutionHistory `json:"history,omitempty"`
 }
 
 // +kubebuilder:object:root=true
@@ -62,3 +62,17 @@ const (
 	ActionTypeExec           ActionType = "Exec"
 	ActionTypeApply          ActionType = "Apply"
 )
+
+type TargetRef struct {
+	ApiVersion string  `json:"apiVersion"`
+	Kind       string  `json:"kind"`
+	Name       string  `json:"name"`
+	Namespace  *string `json:"namespace,omitempty"`
+}
+
+type ExecutionHistory struct {
+	Timestamp metav1.Time      `json:"timestamp"`
+	Result    string           `json:"result"`
+	Message   string           `json:"message,omitempty"`
+	Duration  *metav1.Duration `json:"duration,omitempty"`
+}

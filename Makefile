@@ -12,7 +12,7 @@ all: lint test build
 
 generate:
 	@echo "Generating DeepCopy and CRD manifests..."
-	controller-gen object crd paths=./api/v1alpha1/... output:crd:dir=./config/crd
+	go run sigs.k8s.io/controller-tools/cmd/controller-gen@v0.21.0 object crd paths=./api/v1alpha1/... output:crd:dir=./config/crd
 
 
 build:
