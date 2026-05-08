@@ -7,7 +7,7 @@ import (
 type ActionSpec struct {
 	//+kubebuilder:validation:Required
 	//+kubebuilder:validation:Enum=Scale;Patch;Delete;RolloutRestart;RotateSecret;Cordon;Exec;Apply
-	Type string `json:"type"`
+	Type ActionType `json:"type"`
 	//+kubebuilder:validation:Required
 	TargetRef string            `json:"targetRef"`
 	Params    map[string]string `json:"params,omitempty"`
@@ -49,3 +49,16 @@ type ScheduledActionList struct {
 
 	Items []ScheduledAction `json:"items"`
 }
+
+type ActionType string
+
+const (
+	ActionTypeScale          ActionType = "Scale"
+	ActionTypePatch          ActionType = "Patch"
+	ActionTypeDelete         ActionType = "Delete"
+	ActionTypeRolloutRestart ActionType = "RolloutRestart"
+	ActionTypeRotateSecret   ActionType = "RotateSecret"
+	ActionTypeCordon         ActionType = "Cordon"
+	ActionTypeExec           ActionType = "Exec"
+	ActionTypeApply          ActionType = "Apply"
+)
